@@ -39,5 +39,10 @@ test.describe('Core Flow Tests', () => {
             await page.getByTestId('submit-form').click();
             await expect(page.getByText(TestData.EditProductData.productName)).toBeVisible();
         });
+
+        await test.step('Delete product from list', async () => {
+            await page.getByTestId('product-row-12').getByTestId('delete-button').click();
+            await expect(page.getByText(TestData.EditProductData.productName)).not.toBeVisible();
+        });
     });
 });
