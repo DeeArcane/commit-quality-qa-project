@@ -19,5 +19,16 @@ test.describe('Core Flow Tests', () => {
             await expect(page.getByText('Logout')).toBeVisible();
 
         });
+
+        await test.step('Add product to list', async () => {
+            await page.getByTestId('navbar-addproduct').click();
+            await expect(page.getByRole('heading', { name: 'Add Product' })).toBeVisible();
+            await page.getByTestId('product-textbox').fill(TestData.AddProductData.productName);
+            await page.getByTestId('price-textbox').fill(TestData.AddProductData.productPrice);
+            await page.getByTestId('date-stocked').fill(TestData.AddProductData.productDate);
+            await page.getByTestId('submit-form').click();
+
+            await expect(page.getByText(TestData.AddProductData.productName)).toBeVisible();
+        });
     });
 });

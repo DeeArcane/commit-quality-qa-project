@@ -5,8 +5,8 @@ const LoginData = {
 
 const AddProductData = {
     productName: 'Test Product',
-    productPrice: 19.99,
-    productDate: '10/13/2026'
+    productPrice: '5000',
+    productDate: '2025-10-13'
 };
 
 module.exports = {
