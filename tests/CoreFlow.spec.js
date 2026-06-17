@@ -7,7 +7,6 @@ const TestData = require('../test-data/TestData.js');
 test.describe('Core Flow Tests', () => {
     test('Login and add product to list', async ({ page }) => {
         const login = new LoginPage(page);
-        //const product = new ProductPage(page);
 
         await test.step('Login to the application', async () => {
             await login.goto();
@@ -29,6 +28,16 @@ test.describe('Core Flow Tests', () => {
             await page.getByTestId('submit-form').click();
 
             await expect(page.getByText(TestData.AddProductData.productName)).toBeVisible();
+        });
+
+        await test.step('Edit product in list', async () => {
+            await page.getByTestId('product-row-12').getByTestId('edit-button').click();
+            await expect(page.getByRole('heading', { name: 'Edit' })).toBeVisible();
+            await page.getByTestId('product-textbox').fill(TestData.EditProductData.productName);
+            await page.getByTestId('price-textbox').fill(TestData.EditProductData.productPrice);
+            await page.getByTestId('date-stocked').fill(TestData.EditProductData.productDate);
+            await page.getByTestId('submit-form').click();
+            await expect(page.getByText(TestData.EditProductData.productName)).toBeVisible();
         });
     });
 });
