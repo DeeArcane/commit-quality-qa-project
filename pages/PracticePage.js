@@ -20,6 +20,8 @@ class PracticePage {
         this.radioButton2 = page.getByTestId('option2')
         this.radioButton2Result = page.getByText('Option2 Clicked')
 
+        this.dropdown = page.getByRole('combobox')
+        this.dropdownResult = page.getByText('Option 1')
     }
 
     async goto() {
@@ -52,6 +54,12 @@ class PracticePage {
         await this.radioButton2.click();
         await expect(this.radioButton1Result).not.toBeVisible();
         await expect(this.radioButton2Result).toBeVisible();
+    }
+
+    async dropdownButton() {
+        await this.dropdown.selectOption('option1');
+        await expect(this.dropdown).toHaveValue('option1');
+
     }
 
 }
