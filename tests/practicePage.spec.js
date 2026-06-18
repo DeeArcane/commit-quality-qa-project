@@ -14,5 +14,9 @@ test.describe('Practice Page Tests', () => {
         await test.step('Verify redirected to buttons practice page', async () => {
             await practicePage.goToButtonsPracticePage();
         });
+
+        await test.step('Verify different button interactions work as expected', async () => {
+            await practicePage.clickButton();
+        });
     });
 });
