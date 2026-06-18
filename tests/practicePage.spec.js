@@ -1,4 +1,4 @@
-const { test, expect } = require('@playwright/test');
+const { test } = require('@playwright/test');
 const { PracticePage } = require('../pages/PracticePage');
 
 test.describe('Practice Page Tests', () => {
@@ -8,11 +8,11 @@ test.describe('Practice Page Tests', () => {
         await practicePage.goto();
 
         await test.step('Verify practice page content', async () => {
-            await expect(page.getByText('Note to User')).toBeVisible();
+            await practicePage.expectPracticePageLoaded();
         });
 
-        await test.step('Buttons', async () => {
-            await page.getByRole('link', { name: /buttons/i }).click();
+        await test.step('Verify redirected to buttons practice page', async () => {
+            await practicePage.goToButtonsPracticePage();
         });
     });
 });
