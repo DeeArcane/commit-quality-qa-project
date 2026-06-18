@@ -14,6 +14,12 @@ class PracticePage {
         this.doubleClickButtonResult = page.getByText('Button double clicked')
         this.rightClickButton = page.getByTestId('right-click');
         this.rightClickButtonResult = page.getByText('Button right mouse clicked')
+
+        this.radioButton1 = page.getByTestId('option1')
+        this.radioButton1Result = page.getByText('Option1 Clicked')
+        this.radioButton2 = page.getByTestId('option2')
+        this.radioButton2Result = page.getByText('Option2 Clicked')
+
     }
 
     async goto() {
@@ -38,7 +44,14 @@ class PracticePage {
         await expect(this.doubleClickButtonResult).toBeVisible();
         await this.rightClickButton.click({ button: 'right' });
         await expect(this.rightClickButtonResult).toBeVisible();
+    }
 
+    async radioButton() {
+        await this.radioButton1.click();
+        await expect(this.radioButton1Result).toBeVisible();
+        await this.radioButton2.click();
+        await expect(this.radioButton1Result).not.toBeVisible();
+        await expect(this.radioButton2Result).toBeVisible();
     }
 
 }

@@ -18,5 +18,9 @@ test.describe('Practice Page Tests', () => {
         await test.step('Verify different button interactions work as expected', async () => {
             await practicePage.clickButton();
         });
+
+        await test.step('Verify radio button interactions work as expected', async () => {
+            await practicePage.radioButton();
+        });
     });
 });
