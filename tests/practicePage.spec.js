@@ -26,5 +26,9 @@ test.describe('Practice Page Tests', () => {
         await test.step('Verify dropdown interactions work as expected', async () => {
             await practicePage.dropdownButton();
         });
+
+        await test.step('Verify checkbox interactions work as expected', async () => {
+            await practicePage.checkBox();
+        });
     });
 });

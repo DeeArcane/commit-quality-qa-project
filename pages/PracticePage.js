@@ -5,23 +5,30 @@ class PracticePage {
         this.page = page;
 
         this.noteToUserText = page.getByText('Note to User');
-        this.buttonsLink = page.getByTestId('practice-general')
+        this.buttonsLink = page.getByTestId('practice-general');
         this.buttonsHeading = page.getByRole('heading', { name: 'Buttons', exact: true });
 
         this.basicClickButton = page.getByTestId('basic-click');
-        this.basicClickButtonResult = page.getByText('Button clicked')
+        this.basicClickButtonResult = page.getByText('Button clicked');
         this.doubleClickButton = page.getByTestId('double-click');
-        this.doubleClickButtonResult = page.getByText('Button double clicked')
+        this.doubleClickButtonResult = page.getByText('Button double clicked');
         this.rightClickButton = page.getByTestId('right-click');
-        this.rightClickButtonResult = page.getByText('Button right mouse clicked')
+        this.rightClickButtonResult = page.getByText('Button right mouse clicked');
 
-        this.radioButton1 = page.getByTestId('option1')
-        this.radioButton1Result = page.getByText('Option1 Clicked')
-        this.radioButton2 = page.getByTestId('option2')
-        this.radioButton2Result = page.getByText('Option2 Clicked')
+        this.radioButton1 = page.getByTestId('option1');
+        this.radioButton1Result = page.getByText('Option1 Clicked');
+        this.radioButton2 = page.getByTestId('option2');
+        this.radioButton2Result = page.getByText('Option2 Clicked');
 
-        this.dropdown = page.getByRole('combobox')
-        this.dropdownResult = page.getByText('Option 1')
+        this.dropdown = page.getByRole('combobox');
+        this.dropdownResult = page.getByText('Option 1');
+
+        this.checkBox1 = page.getByTestId('checkbox1');
+        this.checkBox1Result = page.getByText('Checkbox 1 Checked');
+        this.checkBox2 = page.getByTestId('checkbox2');
+        this.checkBox2Result = page.getByText('Checkbox 2 Checked');
+        this.checkBox3 = page.getByTestId('checkbox3');
+        this.checkBox3Result = page.getByText('Checkbox 3 Checked');
     }
 
     async goto() {
@@ -60,6 +67,17 @@ class PracticePage {
         await this.dropdown.selectOption('option1');
         await expect(this.dropdown).toHaveValue('option1');
 
+    }
+
+    async checkBox() {
+        await this.checkBox1.click();
+        await expect(this.checkBox1Result).toBeVisible();
+        await this.checkBox2.click();
+        await expect(this.checkBox2Result).toBeVisible();
+        await this.checkBox3.click();
+        await expect(this.checkBox3Result).toBeVisible();
+        await this.checkBox1.click();
+        await expect(this.checkBox1Result).not.toBeVisible();
     }
 
 }
