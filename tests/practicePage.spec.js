@@ -30,5 +30,9 @@ test.describe('Practice Page Tests', () => {
         await test.step('Verify checkbox interactions work as expected', async () => {
             await practicePage.checkBox();
         });
+
+        await test.step('Verify link interactions work as expected', async () => {
+            await practicePage.linkButton();
+        });
     });
 });

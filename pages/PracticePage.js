@@ -29,6 +29,10 @@ class PracticePage {
         this.checkBox2Result = page.getByText('Checkbox 2 Checked');
         this.checkBox3 = page.getByTestId('checkbox3');
         this.checkBox3Result = page.getByText('Checkbox 3 Checked');
+
+        this.sameTabLink = page.getByTestId('link-same-tab');
+        this.sameTabLinkResult = page.locator('#page-header').getByText('CommitQuality', { exact: true });
+        this.newTabLink = page.getByTestId('link-newtab');
     }
 
     async goto() {
@@ -78,6 +82,21 @@ class PracticePage {
         await expect(this.checkBox3Result).toBeVisible();
         await this.checkBox1.click();
         await expect(this.checkBox1Result).not.toBeVisible();
+    }
+
+    async linkButton() {
+        await this.sameTabLink.click();
+        await expect(this.page).toHaveURL('https://www.youtube.com/@commitquality');
+        await this.page.goBack();
+
+        const [newTab] = await Promise.all([
+            this.page.waitForEvent('popup'),
+            this.newTabLink.click()
+        ]);
+
+        await newTab.waitForLoadState();
+
+        await expect(newTab).toHaveURL('https://www.youtube.com/@commitquality');
     }
 
 }
