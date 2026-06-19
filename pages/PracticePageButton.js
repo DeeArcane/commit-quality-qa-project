@@ -1,6 +1,6 @@
 const { expect } = require('@playwright/test');
 
-class PracticePage {
+class PracticePageButton {
     constructor(page) {
         this.page = page;
 
@@ -101,4 +101,4 @@ class PracticePage {
 
 }
 
-module.exports = { PracticePage };
+module.exports = { PracticePageButton };
