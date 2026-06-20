@@ -64,4 +64,20 @@ test.describe('Practice Page Tests', () => {
             await practicePageAccordion.unclickAccordion3();
         });
     });
+
+    test('Practice File Upload Tests', () => {
+        let practicePageFileUpload;
+
+        test.beforeEach(async ({ page }) => {
+            practicePageFileUpload = new PracticePageFileUpload(page);
+
+            await practicePageFileUpload.goto();
+            await practicePageFileUpload.expectFileUploadPageLoaded();
+        });
+
+        test('Verify user can upload a valid file', async () => {
+            await practicePageFileUpload.uploadSampleFile();
+            await practicePageFileUpload.expectUploadedFileVisible();
+        });
+    });
 });
