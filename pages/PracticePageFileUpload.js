@@ -7,31 +7,32 @@ class PracticePageFileUpload {
     constructor(page) {
         this.page = page;
 
-        this.fileInput = page.locator('input[type="file"]');
+        this.fileuploadLink = page.getByTestId('practice-file-upload');
 
-        // Update these locators based on the actual page text
-        this.uploadedFileName = page.getByText('sample-upload.txt');
-        this.heading = page.getByRole('heading', { name: /file upload/i });
+        this.fileInput = page.getByTestId('file-input');
+        this.fileNameDisplay = page.getByTestId('file-name-display');
+        this.submitButton = page.getByRole('button', { name: 'Submit' })
     }
 
-    async goto() {
-        await this.page.goto('https://commitquality.com/practice-file-upload');
-    }
-
-    async expectFileUploadPageLoaded() {
-        await expect(this.heading).toBeVisible();
+    async expectPracticePageLoaded() {
+        await this.fileuploadLink.click();
+        await expect(this.page).toHaveURL(/practice-file-upload/);
         await expect(this.fileInput).toBeVisible();
     }
 
-    async uploadSampleFile() {
-        const filePath = path.join(__dirname, '..', 'tests', 'fixtures', 'sample-upload.txt');
-
+    async uploadFile(fileName) {
+        const filePath = path.join(__dirname, `../test-data/${fileName}`);
         await this.fileInput.setInputFiles(filePath);
     }
 
-    async expectUploadedFileVisible() {
-        await expect(this.uploadedFileName).toBeVisible();
+    async verifyFileUploaded(fileName) {
+        const uploadedFileName = await this.fileInput.evaluate(input => input.files[0].name);
+        expect(uploadedFileName).toBe(fileName);
     }
-}
 
+    async submitFile() {
+        await this.submitButton.click();
+    }
+
+}
 module.exports = { PracticePageFileUpload };

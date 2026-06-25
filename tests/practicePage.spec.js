@@ -1,6 +1,7 @@
 const { test } = require('@playwright/test');
 const { PracticePageButton } = require('../pages/PracticePageButton');
 const { PracticePageAccordion } = require('../pages/PracticePageAccordion');
+const { PracticePageFileUpload } = require('../pages/PracticePageFileUpload');
 
 test.describe('Practice Page Tests', () => {
     let practicePage;
@@ -65,19 +66,18 @@ test.describe('Practice Page Tests', () => {
         });
     });
 
-    test('Practice File Upload Tests', () => {
-        let practicePageFileUpload;
+    test('Practice File Upload Tests', async ({ page }) => {
+        const practicePageFileUpload = new PracticePageFileUpload(page);
+        await practicePage.goto();
 
-        test.beforeEach(async ({ page }) => {
-            practicePageFileUpload = new PracticePageFileUpload(page);
-
-            await practicePageFileUpload.goto();
-            await practicePageFileUpload.expectFileUploadPageLoaded();
+        await test.step('Verify practice page content', async () => {
+            await practicePageFileUpload.expectPracticePageLoaded();
         });
 
-        test('Verify user can upload a valid file', async () => {
-            await practicePageFileUpload.uploadSampleFile();
-            await practicePageFileUpload.expectUploadedFileVisible();
+        await test.step('Verify file upload functionality', async () => {
+            await practicePageFileUpload.uploadFile('test.txt');
+            await practicePageFileUpload.verifyFileUploaded('test.txt');
+            await practicePageFileUpload.submitFile();
         });
     });
 });
