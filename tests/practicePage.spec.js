@@ -2,6 +2,7 @@ const { test } = require('@playwright/test');
 const { PracticePageButton } = require('../pages/PracticePageButton');
 const { PracticePageAccordion } = require('../pages/PracticePageAccordion');
 const { PracticePageFileUpload } = require('../pages/PracticePageFileUpload');
+const { PracticePageDragAndDrop } = require('../pages/PracticePageDragandDrop');
 
 test.describe('Practice Page Tests', () => {
     let practicePage;
@@ -80,4 +81,19 @@ test.describe('Practice Page Tests', () => {
             await practicePageFileUpload.submitFile();
         });
     });
+
+    test('Drag and Drop Box Test', async ({ page }) => {
+        const practicePageDragAndDrop = new PracticePageDragAndDrop(page);
+        await practicePage.goto();
+
+        await test.step('Verify practice page content', async () => {
+            await practicePageDragAndDrop.expectPracticePageLoaded();
+        });
+
+        await test.step('Verify drag and drop functionality', async () => {
+            await practicePageDragAndDrop.dragItemToDropZone();
+            await practicePageDragAndDrop.expectItemDroppedSuccessfully();
+        });
+    });
+
 });
