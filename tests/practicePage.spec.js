@@ -4,6 +4,7 @@ const { PracticePageAccordion } = require('../pages/PracticePageAccordion');
 const { PracticePageFileUpload } = require('../pages/PracticePageFileUpload');
 const { PracticePageDragAndDrop } = require('../pages/PracticePageDragandDrop');
 const { PracticePageForm } = require('../pages/PracticePageForm');
+const { PracticePageClock } = require('../pages/PracticePageClock');
 const TestData = require('../test-data/TestData.js');
 
 test.describe('Practice Page Tests', () => {
@@ -117,6 +118,25 @@ test.describe('Practice Page Tests', () => {
 
         await test.step('Submit the form', async () => {
             await practicePageForm.submitForm();
+        });
+    });
+
+    test('Practice Clock Tests', async ({ page }) => {
+        const practicePageClock = new PracticePageClock(page);
+        await practicePage.goto();
+
+
+
+        await test.step('Verify clock page loaded', async () => {
+            await practicePageClock.expectPracticePageLoaded();
+        });
+
+        await test.step('Verify clock updates', async () => {
+            await practicePageClock.expectClockUpdates();
+        });
+
+        await test.step('Verify timer runs automatically', async () => {
+            await practicePageClock.expectTimerRunsAutomatically();
         });
     });
 
