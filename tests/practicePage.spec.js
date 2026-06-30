@@ -3,6 +3,8 @@ const { PracticePageButton } = require('../pages/PracticePageButton');
 const { PracticePageAccordion } = require('../pages/PracticePageAccordion');
 const { PracticePageFileUpload } = require('../pages/PracticePageFileUpload');
 const { PracticePageDragAndDrop } = require('../pages/PracticePageDragandDrop');
+const { PracticePageForm } = require('../pages/PracticePageForm');
+const TestData = require('../test-data/TestData.js');
 
 test.describe('Practice Page Tests', () => {
     let practicePage;
@@ -93,6 +95,28 @@ test.describe('Practice Page Tests', () => {
         await test.step('Verify drag and drop functionality', async () => {
             await practicePageDragAndDrop.dragItemToDropZone();
             await practicePageDragAndDrop.expectItemDroppedSuccessfully();
+        });
+    });
+
+    test('Practice Form Tests', async ({ page }) => {
+        const practicePageForm = new PracticePageForm(page);
+        await practicePage.goto();
+
+        await test.step('Verify practice page content', async () => {
+            await practicePageForm.expectPracticePageLoaded();
+        });
+
+        await test.step('Fill out and submit the form', async () => {
+            await practicePageForm.fillForm(
+                TestData.FillFormData.name,
+                TestData.FillFormData.email,
+                TestData.FillFormData.option,
+                TestData.FillFormData.date
+            );
+        });
+
+        await test.step('Submit the form', async () => {
+            await practicePageForm.submitForm();
         });
     });
 

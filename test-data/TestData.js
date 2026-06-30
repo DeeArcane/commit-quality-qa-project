@@ -15,8 +15,16 @@ const EditProductData = {
     productDate: '2025-11-13'
 };
 
+const FillFormData = {
+    name: 'Test User',
+    email: 'test@example.com',
+    option: 'General',
+    date: '2026-06-30'
+};
+
 module.exports = {
     LoginData,
     AddProductData,
-    EditProductData
+    EditProductData,
+    FillFormData
 };
